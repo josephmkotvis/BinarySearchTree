@@ -27,133 +27,27 @@ namespace BinarySearchTree
             Node current = head;
             while ((current.left != null) && (current.right != null))
             {
-                if ((current.next == null) && (current.left == null) && (current.right == null))
-                {
-                    current.next = current;
-                }
-                else if ((current.next != null) && (current.left == null) && (current.right == null))
-                {
-                    if (current.next.data < current.data)
+                //while ((current.data > node.data) || (current.data < node.data))
+                //{
+                    if (current.data > node.data)
                     {
-                        current.left = current.next;
-                        current.right = current;
+                        current = current.left;
                     }
-                    else if (current.next.data > current.data)
+                    else if (current.data < node.data)
                     {
-                        current.left = current;
-                        current.right = current.next;
+                        current = current.right;
                     }
-                }
+                //}
             }
-            if ((current.left.data < node.data) && (node.data < current.data))
-            {
-                if (current.left.next == null)
-                {
-                    current.left.next = node;
-                }
-                else if (current.left.next != null)
-                    if (current.left.next.data < node.data)
-                    {
-                        current.left.left = current.left.next;
-                        current.left.right = node;
-                    }
-                    else if (current.left.next.data > node.data)
-                    {
-                        current.left.left = node;
-                        current.left.right = current.left.next;
-                    }
+            if (current.data > node.data)
+               {
+                 current.left = node;
+               }
+            else if (current.data < node.data)
+               {
+                 current.right = node;
+               }
             }
-            else if ((current.left.data > node.data) && (node.data > current.data))
-            {
-                if (current.left.next == null)
-                {
-                    current.left.next = node;
-                }
-                else if (current.left.next != null)
-                    if (current.left.next.data < node.data)
-                    {
-                        current.left.left = current.left.next;
-                        current.left.right = node; 
-                    }
-                    else if (current.left.next.data > node.data)
-                    {
-                        current.left.left = node;
-                        current.left.right = current.left.next;
-                    }   
-            }
-            else if ((current.right.data < node.data) && (node.data < current.data))
-            {
-                if (current.right.next == null)
-                {
-                    current.right.next = node;
-                }
-                else if (current.right.next != null)
-                    if (current.right.next.data < node.data)
-                    {
-                        current.right.left = current.right.next;
-                        current.right.right = node;
-                    }
-                    else if (current.right.next.data > node.data)
-                    {
-                        current.right.left = node;
-                        current.right.right = current.right.next;
-                    }
-            }
-            else if ((current.right.data > node.data) && (node.data > current.data))
-            {
-                if (current.right.next == null)
-                {
-                    current.right.next = node;
-                }
-                else if (current.right.next != null)
-                    if (current.right.next.data < node.data)
-                    {
-                        current.right.left = current.right.next;
-                        current.right.right = node;
-                    }
-                    else if (current.right.next.data > node.data)
-                    {
-                        current.right.left = node;
-                        current.right.right = current.right.next;
-                    }
-            }
-            else if ((current.left.data > node.data) && (current.data > current.left.data))
-            {
-                if (current.left.next == null)
-                {
-                    current.left.next = node;
-                }
-                else if (current.left.next != null)
-                    if (current.left.next.data < node.data)
-                    {
-                        current.left.left = current.left.next;
-                        current.left.right = node;
-                    }
-                    else if (current.left.next.data > node.data)
-                    {
-                        current.left.left = node;
-                        current.left.right = current.left.next;
-                    }
-            }
-            else if ((current.right.data > node.data) && (current.data > current.right.data))
-            {
-                if (current.right.next == null)
-                {
-                    current.right.next = node;
-                }
-                else if (current.right.next != null)
-                    if (current.right.next.data < node.data)
-                    {
-                        current.right.left = current.right.next;
-                        current.right.right = node;
-                    }
-                    else if (current.right.next.data > node.data)
-                    {
-                        current.right.left = node;
-                        current.right.right = current.right.next;
-                    }
-            }
-        }
         public bool Search(int searchNumber)
         {
             Node current = head;
@@ -174,5 +68,28 @@ namespace BinarySearchTree
             }
             return false;
         }
+        public void Display()
+       {
+           Display(head, 0);
+           Console.WriteLine();
+       }
+       public void Display(Node node, int level)
+       {
+           if (node == null)
+           {
+               return;
+           }
+
+           Display(node.right, level + 1);
+           Console.WriteLine();
+
+           for (int i = 0; i < level; i++)
+           {
+               Console.Write("    ");
+           }
+           Console.Write(node.data);
+
+           Display(node.left, level + 1);
+       }
     }
 }

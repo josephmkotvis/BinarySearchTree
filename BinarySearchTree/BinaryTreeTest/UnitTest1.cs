@@ -9,7 +9,10 @@ namespace BinaryTreeTest
         [TestMethod]
         public void TestBinaryTree()
         {
-            //Arrange
+            ////Arrange
+            //Random rnd = new Random();
+            ////Act 
+
 
 
         }
