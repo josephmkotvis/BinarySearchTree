@@ -12,21 +12,17 @@ namespace BinarySearchTree
         {
             Random random = new Random();
             MyBinaryList list1 = new MyBinaryList();
-            for(int i = 0; i <26; i ++)
+            for(int i = 1; i <21; i ++)
             {
-                (random.Next(0, 100));
+                int randomNumber = random.Next(1, 21);
+                list1.Add(randomNumber);
             }
-            list1.Add(4);
-            list1.Add(2);
-            list1.Add(7);
-            list1.Add(6);
-            list1.Add(1);
-            list1.Add(9);
-            list1.Add(3);
-            list1.Add(10);
-            list1.Add(5);
-            list1.Add(8);
+            int randomNumber2 = random.Next(1, 21);
+            bool resultsFoundResult = list1.Search(randomNumber2);
             list1.Display();
+            list1.DisplaySize();
+            Console.WriteLine("You found your search result of " + randomNumber2 + " after going through " + list1.pathWayAmount + " pathways." +Environment.NewLine+ "The order that was taken to find " + randomNumber2 + " is the following");
+            list1.DisplayRoute();
             Console.ReadLine();
         }
     }

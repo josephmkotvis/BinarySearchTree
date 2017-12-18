@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace BinarySearchTree
 {
-    class MyBinaryList
+    public class MyBinaryList
     {
-        Node head = null;
+        Node head;
         int count;
-        List<int> pathWay;
+        List<string> pathWay = new List<string>();
+        public int pathWayAmount;
 
         public MyBinaryList()
         {
@@ -21,14 +22,13 @@ namespace BinarySearchTree
             Node node = new Node(number);
             if (head == null)
             {
+                count++;
                 head = node;
                 return;
             }
             Node current = head;
-            while ((current.left != null) && (current.right != null))
+            while (((current.left != null) && (current.right != null)) && (current.data != node.data))
             {
-                //while ((current.data > node.data) || (current.data < node.data))
-                //{
                     if (current.data > node.data)
                     {
                         current = current.left;
@@ -37,59 +37,84 @@ namespace BinarySearchTree
                     {
                         current = current.right;
                     }
-                //}
             }
             if (current.data > node.data)
                {
-                 current.left = node;
+                count++;
+                current.left = node;
                }
             else if (current.data < node.data)
                {
-                 current.right = node;
+                count++;
+                current.right = node;
                }
+            else if (current.data == node.data)
+            {
+                count++;
+                current = node;
             }
+        }
         public bool Search(int searchNumber)
         {
             Node current = head;
-            while ((current.left != null) && (current.right != null))
+            while ((current.left == null) || (current.right == null) || ((current.left == null) && (current.right == null)))
             {
                 if (current.data.Equals(searchNumber))
                 {
                     return true;
                 }
-                else if (current.data < current.right.data)
+                else
                 {
-                    current = current.left;
-                }
-                else if (current.data > current.left.data)
-                {
-                    current = current.right;
+                    if (current.data > searchNumber)
+                    {
+                        current = current.left;
+                        pathWay.Add("left (lesser)");
+                        pathWayAmount++;
+                    }
+                    else if (current.data < searchNumber)
+                    {
+                        current = current.right;
+                        pathWay.Add("right (greater)");
+                        pathWayAmount++;
+                    }
                 }
             }
             return false;
         }
+        // Display method for visual testing purposes only.
         public void Display()
        {
            Display(head, 0);
            Console.WriteLine();
        }
-       public void Display(Node node, int level)
+       public void Display(Node node, int generation)
        {
            if (node == null)
            {
                return;
            }
 
-           Display(node.right, level + 1);
+           Display(node.right, generation + 1);
            Console.WriteLine();
 
-           for (int i = 0; i < level; i++)
+           for (int i = 0; i < generation; i++)
            {
                Console.Write("    ");
            }
            Console.Write(node.data);
 
-           Display(node.left, level + 1);
+           Display(node.left, generation + 1);
        }
+        public void DisplayRoute()
+        {
+            for (int i =0; i < pathWayAmount; i++)
+            {
+                Console.WriteLine(pathWay[i]);
+            }
+        }
+        public void DisplaySize()
+        {
+            Console.WriteLine("The size of this binary tree is " + count + "." );
+        }
     }
 }
